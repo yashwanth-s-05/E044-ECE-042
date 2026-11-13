@@ -1,0 +1,11 @@
+# Load the tag master file
+LOAD_TAGS|tags.csv
+
+# Merge and process pass, recharge and read events
+PROCESS_EVENTS|reads.csv|recharges.csv|passes.csv
+
+# Generate daily collection for October 2026
+PRINT_DAILY_COLLECTION|2026-10-01|2026-10-31
+
+# Generate monthly statements for October 2026
+PRINT_STATEMENTS|2026-10
