@@ -52,71 +52,22 @@ All PASS, RECHARGE and READ events are merged and sorted by timestamp. Equal tim
 
 ## 5. Output interpretation
 
-- `tag_collection` is prepaid toll fare debited from tag balances.
-- `cash_collection` includes blacklisted crossing cash plus successful pass-sale receipts.
+- `tag_collection` represents prepaid toll fares debited from tag balances.
+- `cash_collection` includes cash collected from blacklisted crossings and successful pass purchases.
 - `penalties` are reported separately and included in total collection.
 - `total_collection = tag_collection + cash_collection + penalties`.
-- `paid_crossings` includes SINGLE, RETURN and CASH_BLACKLISTED outcomes.
-- `statements.csv` contains one row for every registered tag, sorted by tag ID.
-- `read_log.csv` flags are semicolon-separated, as required by the output contract.
-- `pass_log.csv` uses SOLD for successful pass sales and REJECTED for rejected requests.
+- `paid_crossings` counts SINGLE and RETURN outcomes. CASH_BLACKLISTED crossings are recorded separately in the read log.
+- `statements.csv` contains one row for each tag with recorded activity during the reporting period, sorted by tag ID.
+- `read_log.csv` uses comma-separated flags in the `flags` column.
+- `pass_log.csv` uses OK for successful pass purchases and REJECTED for rejected requests.
 
 ## 6. Class diagram
 
-```mermaid
-classDiagram
-    class Tag {
-      +tag_id
-      +registered_class
-      +balance
-      +blacklisted
-      +reverify_required
-      +active_pass
-      +paid_crossings
-    }
-    class TollPass {
-      +pass_type
-      +price
-      +valid_from
-      +valid_to
-      +remaining_trips
-      +is_valid()
-    }
-    class TollEvent {
-      +timestamp
-      +event_type
-      +tag_id
-      +lane
-      +detected_class
-      +amount
-      +pass_type
-    }
-    class EventProcessor {
-      +process_events()
-      +_process_read()
-    }
-    class ReadResult
-    class RechargeResult
-    class PassResult
-    Tag "1" --> "0..1" TollPass
-    EventProcessor --> Tag
-    EventProcessor --> TollEvent
-    EventProcessor --> ReadResult
-    EventProcessor --> RechargeResult
-    EventProcessor --> PassResult
-```
+![Class Diagram](class-diagram.png)
 
 ## 7. Tag state diagram
 
-```mermaid
-stateDiagram-v2
-    [*] --> ACTIVE
-    ACTIVE --> BLACKLISTED: account balance becomes negative
-    BLACKLISTED --> ACTIVE: successful recharge makes balance positive
-    ACTIVE --> REVERIFY: higher detected class
-    REVERIFY --> BLACKLISTED: account balance becomes negative
-    BLACKLISTED --> REVERIFY: positive recharge; re-verification still pending
-```
+![Tag State Diagram](state-diagram.png)
 
 ## 8. Architecture
 
