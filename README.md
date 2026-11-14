@@ -2,6 +2,32 @@
 
 A Python-based command-line application that simulates the account management engine of a single RFID-based highway toll plaza.
 
+## Quick Start
+
+### Prerequisites
+- Python 3.10 or later
+- Required input CSV files in the `data/` directory
+
+### Install dependencies
+
+```bash
+python -m pip install -r requirements.txt
+```
+
+### Run the application
+
+```bash
+python -m src.main
+```
+
+### Run automated tests
+
+```bash
+python -m pytest -v
+```
+
+**Note:** Run these commands from the project's root directory.
+
 ## 1. Project Overview
 
 The Electronic Toll RFID Tag Account Engine is designed to automate toll transaction processing and prepaid RFID tag account management.
