@@ -283,7 +283,7 @@ The `docs/` directory contains the supporting technical documentation:
 
 ## 15. Project Demonstration
 
-**Demonstration Video:** [Watch the Project Demo](PASTE_YOUR_VIDEO_LINK_HERE)
+**Demonstration Video:** [Watch the Project Demo](https://drive.google.com/file/d/177J_Aa7ZI-mVEZ9IqdZe0Fs_Zqwpk1ob/view?usp=sharing)
 
 The demonstration covers the application workflow, execution, generated reports and selected edge-case validations.
 
